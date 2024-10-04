@@ -1,6 +1,6 @@
 import uvicorn
 
-from api.routes import router as api_router
+from api.routers import router as api_router
 from core.config import settings
 from fastapi import FastAPI
 
