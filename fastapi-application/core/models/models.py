@@ -1,4 +1,3 @@
-# core/models/models.py
 from datetime import datetime
 
 from sqlalchemy import DateTime, ForeignKey, Integer, String, func
