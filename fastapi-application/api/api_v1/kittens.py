@@ -1,7 +1,7 @@
 from core.models import db_helper
 from core.schemas.kittens import KittenCreate, KittenRead
 from crud import kittens as crud_kittens
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
@@ -9,8 +9,17 @@ router = APIRouter(tags=['Kittens'])
 
 
 @router.get('', response_model=list[KittenRead])
-async def get_kittens(session: AsyncSession = Depends(db_helper.session_getter)):  # noqa: B008
-    return await crud_kittens.get_all_kittens(session=session)
+async def get_kittens(
+    session: AsyncSession = Depends(db_helper.session_getter),  # noqa: B008
+    name: str | None = Query(None),
+    breed_id: float | None = Query(None),
+    min_age: float | None = Query(None),
+    max_age: float | None = Query(None),
+) -> list[KittenRead]:
+    return await crud_kittens.get_filtered_kittens(
+        session, name=name, breed_id=breed_id, min_age=min_age, max_age=max_age
+    )
+
 
 
 @router.post('', response_model=KittenRead)

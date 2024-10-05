@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 
 import uvicorn
 
-from api.routers import router as api_router
+from api import router as api_router
 from core.config import settings
 from core.models import db_helper
 from fastapi import FastAPI

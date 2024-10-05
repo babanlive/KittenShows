@@ -10,7 +10,7 @@ router = APIRouter(tags=['Breeds'])
 
 @router.get('', response_model=list[BreedRead])
 async def get_breeds(session: AsyncSession = Depends(db_helper.session_getter)):  # noqa: B008
-    return await crud_breeds.get_breeds(session=session)
+    return await crud_breeds.get_all_breeds(session=session)
 
 
 @router.post('', response_model=BreedRead)
