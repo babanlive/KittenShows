@@ -87,55 +87,61 @@ curl -X 'GET' \
   -H 'accept: application/json'
   ```
 
-2. Получение списка всех котят
+2. Добавление породы котят
 ```shell
-curl -X 'GET' \
-  'http://127.0.0.1:8000/api/v1/kittens' \
-  -H 'accept: application/json'
- ```
-
- 3. Получение информации о конкретном котенке
-
-```shell
- curl -X 'GET' \
-  'http://127.0.0.1:8000/api/v1/kittens/1' \
-  -H 'accept: application/json'
- ```
-
-4. Добавление нового котенка
-
-```shell
- curl -X 'POST' \
-  'http://127.0.0.1:8000/api/v1/kittens' \
+curl -X 'POST' \
+  'http://127.0.0.1:8000/api/api/v1/breeds' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-    "name": "Kitty",
-    "age": 3,
-    "color": "Brown",
-    "breed_id": 1
+  "name": "maine coon"
 }'
  ```
 
- 5. Обновление информации о котенке
+3. Добавление нового котенка
+
+```shell
+curl -X 'POST' \
+  'http://127.0.0.1:8000/api/api/v1/kittens' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "Pushok",
+  "color": "grey",
+  "age": 5,
+  "description": "",
+  "breed_id": 1
+}'
+ ```
+
+ 4. Получение информации о котенке с фильтрацией по минимальному возрасту
+
+```shell
+curl -X 'GET' \
+  'http://127.0.0.1:8000/api/api/v1/kittens?min_age=2' \
+  -H 'accept: application/json'
+ ```
+ 
+  5. Обновление информации о котенке
 
 ```shell
 curl -X 'PUT' \
-  'http://127.0.0.1:8000/api/v1/kittens/1' \
+  'http://127.0.0.1:8000/api/api/v1/kittens/1' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-    "name": "UpdatedKitty",
+    "name": "Snegok",
     "age": 4,
-    "color": "Black",
+    "color": "white",
     "breed_id": 1
 }'
  ```
+ 
 6. Удаление котенка
 
 ```shell
- curl -X 'DELETE' \
-  'http://127.0.0.1:8000/api/v1/kittens/1' \
+curl -X 'DELETE' \
+  'http://127.0.0.1:8000/api/api/v1/kittens/1' \
   -H 'accept: application/json'
  ```
 
