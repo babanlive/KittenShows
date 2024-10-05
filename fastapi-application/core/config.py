@@ -7,8 +7,15 @@ class RunConfig:
     port: int = 8000
 
 
+class ApiV1Prefix(BaseModel):
+    prefix: str = '/v1'
+    breeds: str = '/breeds'
+    kittens: str = '/kittens'
+
+
 class ApiPrefix(BaseModel):
     prefix: str = '/api'
+    v1: ApiV1Prefix = ApiV1Prefix()
 
 
 class DatabaseConfig(BaseModel):
@@ -21,7 +28,10 @@ class DatabaseConfig(BaseModel):
 
 class Settings(BaseSettings):
     model_config: SettingsConfigDict = SettingsConfigDict(
-        env_file=('.env.example', '.env'), case_sensitive=False, env_nested_delimiter='__', env_prefix='APP_CONFIG__'
+        env_file=('.env.example', '.env'),
+        case_sensitive=False,
+        env_nested_delimiter='__',
+        env_prefix='APP_CONFIG__'
     )
     run: RunConfig = RunConfig()
     api: ApiPrefix = ApiPrefix()
