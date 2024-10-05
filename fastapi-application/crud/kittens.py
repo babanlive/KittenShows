@@ -46,7 +46,7 @@ async def create_kitten(session: AsyncSession, kitten_create: KittenCreate) -> K
     if existing_kitten:
         raise HTTPException(status_code=400, detail='Kitten already exists in this breed')
 
-    kitten = Kitten(**kitten_create.dict())
+    kitten = Kitten(**kitten_create.model_dump())
     session.add(kitten)
     await session.commit()
     await session.refresh(kitten)
@@ -70,7 +70,7 @@ async def update_kitten(session: AsyncSession, kitten_id: int, kitten_update: Ki
     if not breed:
         raise HTTPException(status_code=400, detail=f'Breed with id {breed_id} does not exist')
 
-    for key, value in kitten_update.dict().items():
+    for key, value in kitten_update.model_dump().items():
         setattr(kitten, key, value)
 
     await session.commit()

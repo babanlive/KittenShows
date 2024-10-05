@@ -20,7 +20,7 @@ async def create_breed(session: AsyncSession, breed_create: BreedCreate) -> Bree
     if existing_breed:
         raise HTTPException(status_code=400, detail='Breed already exists')
 
-    breed = Breed(**breed_create.dict())
+    breed = Breed(**breed_create.model_dump())
     session.add(breed)
     await session.commit()
     await session.refresh(breed)
@@ -34,7 +34,7 @@ async def update_breed(session: AsyncSession, breed_id: int, breed_update: Breed
     if not breed:
         raise HTTPException(status_code=404, detail='Breed not found')
 
-    for key, value in breed_update.dict().items():
+    for key, value in breed_update.model_dump().items():
         setattr(breed, key, value)
 
     await session.commit()
