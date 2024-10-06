@@ -144,4 +144,9 @@ curl -X 'DELETE' \
   'http://127.0.0.1:8000/api/api/v1/kittens/1' \
   -H 'accept: application/json'
  ```
+### Тесты
+- Запуска тестов:
 
+```shell
+docker exec -it app_fastapi poetry run pytest tests/ --disable-warnings
+```
