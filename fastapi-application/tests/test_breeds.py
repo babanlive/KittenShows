@@ -30,7 +30,7 @@ async def test_update_breed(async_client: AsyncClient):
 
 @pytest.mark.anyio
 async def test_delete_breed(async_client: AsyncClient):
-    response = await async_client.post('/api/v1/breeds', json={'dname': 'Maine Coon'})
+    response = await async_client.post('/api/v1/breeds', json={'name': 'Maine Coon'})
     breed_id = response.json()['id']
 
     delete_response = await async_client.delete(f'/api/v1/breeds/{breed_id}')
