@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  db:
+    restart: always
+    container_name: pg
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: kitten
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+
+  web:
+    build:
+      target: dev
+      context: .
+      dockerfile: ./Dockerfile
+    image: app/app_dev
+    container_name: app_fastapi
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    env_file:
+      - ./fastapi-application/.env
+    working_dir: /app/fastapi-application
+    command: ["uvicorn", "main:main_app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    network_mode: "container:pg"  # Указание на использование сетевого стека контейнера pg
